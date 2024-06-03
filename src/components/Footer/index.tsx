@@ -3,28 +3,24 @@ import { DefaultFooter } from '@ant-design/pro-components';
 import React from 'react';
 
 const Footer: React.FC = () => {
+  const defaultMessage = 'WangDog 智能Bi 2024 Created by WangShuai1Zz';
   return (
     <DefaultFooter
       style={{
         background: 'none',
       }}
+      copyright={`${defaultMessage}`}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
+          key: 'WangDog 智能Bi',
+          title: 'WangDog 智能Bi',
           blankTarget: true,
+          href: ''
         },
         {
           key: 'github',
           title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
-          blankTarget: true,
-        },
-        {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          href: 'https://github.com/wangshuai1Zz/Bi',
           blankTarget: true,
         },
       ]}

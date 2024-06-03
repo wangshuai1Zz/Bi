@@ -14,7 +14,10 @@ declare namespace API {
   type ApiResponseMapStringString = {
     code?: number;
     message?: string;
-    data?: Record<string, any>;
+    data: {
+      userid: number;
+      token: string;
+    };
   };
 
   type ApiResponseString = {
@@ -43,21 +46,17 @@ declare namespace API {
     size: number;
   };
 
-  type getUserParams = {
-    userId: number;
-  };
-
   type getUsersParams = {
     labels: string[];
     isFuzzy?: boolean;
   };
 
   type IPageLabel = {
-    size?: number;
     current?: number;
     records?: Label[];
     total?: number;
     pages?: number;
+    size?: number;
   };
 
   type Label = {
@@ -73,8 +72,8 @@ declare namespace API {
   };
 
   type LoginVo = {
-    accountName?: string;
-    password?: string;
+    accountName: string;
+    password: string;
   };
 
   type LogoutParams = {
