@@ -9,7 +9,7 @@ export async function excelToString(
   body: {},
   options?: { [key: string]: any },
 ) {
-  return request<API.ApiResponseString>('/File/convert', {
+  return request<API.ApiResponseString>('/gas/File/convert', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

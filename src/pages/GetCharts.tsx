@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Space, Select, SelectProps, UploadProps, message, Button } from 'antd';
+import { Form, Input, Space, Select, SelectProps, UploadProps, message, Button, Upload } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
 import { InboxOutlined } from '@ant-design/icons';
 
@@ -32,12 +32,32 @@ const GetCharts: React.FC = () => {
   const props: UploadProps = {
     name: 'file',
     multiple: true,
+    beforeUpload(file) {
+      const isExcel =
+        file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+        file.type === 'application/vnd.ms-excel';
+
+      if (!isExcel) {
+        message.error('您只能上传Excel文件!');
+      }
+
+      //const isSingle = file.length === 0;
+
+      //if (!isSingle) {
+      //  message.error('您只能上传一个文件!');
+      //}
+
+      return isExcel || Upload.LIST_IGNORE// && isSingle;
+    },
     onChange(info) {
       const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
       if (status === 'done') {
-        message.success(`${info.file.name} 文件上传成功.`);
+        message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
-        message.error(`${info.file.name} 文件上传失败.`);
+        message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
@@ -79,7 +99,7 @@ const GetCharts: React.FC = () => {
         </Form.Item>
 
         <Form.Item label="原始数据" name="file" rules={[{ required: true, message: '请上传文件!' }]}>
-          <Dragger {...props}>
+          <Dragger {...props} maxCount={1}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>

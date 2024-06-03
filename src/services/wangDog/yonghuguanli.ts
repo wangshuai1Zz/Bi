@@ -9,7 +9,7 @@ export async function doDelete(
   ,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/user/doDelete', {
+  return request<API.ApiResponseString>('/gas/user/doDelete', {
     method: 'DELETE',
     params: {
       ...params,
@@ -25,7 +25,7 @@ export async function doLogin(
   ,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseMapStringString>('/user/doLogin', {
+  return request<API.ApiResponseMapStringString>('/gas/user/doLogin', {
     method: 'POST',
     params: {
 
@@ -39,7 +39,7 @@ export async function doLogin(
 export async function doLogout(
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/user/doLogout', {
+  return request<API.ApiResponseString>('/gas/user/doLogout', {
     method: 'POST',
     ...(options || {}),
   });
@@ -52,7 +52,7 @@ export async function doRevise(
   , body: API.UserVo,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/user/doRevise', {
+  return request<API.ApiResponseString>('/gas/user/doRevise', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export async function doRevise(
 export async function doSign(body: API.SignVo,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/user/doSign', {
+  return request<API.ApiResponseString>('/gas/user/doSign', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export async function doSignByPhone(
   ,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/user/doSignByPhone', {
+  return request<API.ApiResponseString>('/gas/user/doSignByPhone', {
     method: 'POST',
     params: {
 
@@ -100,7 +100,7 @@ export async function doSignByPhone(
 export async function getUser(
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseUserVo>('/user/getUser', {
+  return request<API.ApiResponseUserVo>('/gas/user/getUser', {
     method: 'GET',
     ...(options || {}),
   });
