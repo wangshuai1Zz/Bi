@@ -9,7 +9,7 @@ export async function doDelete(
   ,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/gas/user/doDelete', {
+  return request<API.ApiResponseString>('/user/doDelete', {
     method: 'DELETE',
     params: {
       ...params,
@@ -19,20 +19,18 @@ export async function doDelete(
 }
 
 /** 用户登录接口 POST /user/doLogin */
-export async function doLogin(body: API.LoginVo,
+export async function doLogin(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.doLoginParams
+  ,
   options?: { [key: string]: any }
 ) {
-  const formData = new FormData();
-  // 假设 body 包含用户名和密码
-  formData.append('accountName', body.accountName);
-  formData.append('password', body.password);
-
-  return request<API.ApiResponseMapStringString>('/gas/user/doLogin', {
+  return request<API.ApiResponseMapStringString>('/user/doLogin', {
     method: 'POST',
-    headers: {
-      // 'Content-Type' 头部不需要设置，FormData会自动设置正确的Content-Type
+    params: {
+
+      ...params,
     },
-    data: formData,
     ...(options || {}),
   });
 }
@@ -41,20 +39,20 @@ export async function doLogin(body: API.LoginVo,
 export async function doLogout(
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/gas/user/doLogout', {
+  return request<API.ApiResponseString>('/user/doLogout', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 /** doRevise 用户修改接口 PUT /user/doRevise */
-export async function revise(
+export async function doRevise(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.ReviseParams
   , body: API.UserVo,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/gas/user/doRevise', {
+  return request<API.ApiResponseString>('/user/doRevise', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +69,7 @@ export async function revise(
 export async function doSign(body: API.SignVo,
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseString>('/gas/user/doSign', {
+  return request<API.ApiResponseString>('/user/doSign', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -81,11 +79,28 @@ export async function doSign(body: API.SignVo,
   });
 }
 
+/** 用户短信注册接口 POST /user/doSignByPhone */
+export async function doSignByPhone(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.doSignByPhoneParams
+  ,
+  options?: { [key: string]: any }
+) {
+  return request<API.ApiResponseString>('/user/doSignByPhone', {
+    method: 'POST',
+    params: {
+
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** 获取用户信息接口 GET /user/getUser */
 export async function getUser(
   options?: { [key: string]: any }
 ) {
-  return request<API.ApiResponseUserVo>('/gas/user/getUser', {
+  return request<API.ApiResponseUserVo>('/user/getUser', {
     method: 'GET',
     ...(options || {}),
   });

@@ -14,10 +14,7 @@ declare namespace API {
   type ApiResponseMapStringString = {
     code?: number;
     message?: string;
-    data: {
-      userid: number;
-      token: string;
-    };
+    data?: Record<string, any>;
   };
 
   type ApiResponseString = {
@@ -32,6 +29,12 @@ declare namespace API {
     data?: UserVo;
   };
 
+  type ChartVo = {
+    chartName?: string;
+    chartType?: string;
+    chartTarget?: string;
+  };
+
   type createUserLabelParams = {
     userid: number;
     labels: string[];
@@ -39,6 +42,20 @@ declare namespace API {
 
   type DeleteParams = {
     userId: number;
+  };
+
+  type doLoginParams = {
+    accountName: string;
+    password: string;
+  };
+
+  type doSignByPhoneParams = {
+    phone: string;
+    code: string;
+  };
+
+  type ExcelToStringParams = {
+    chartVo: ChartVo;
   };
 
   type getLabelsParams = {
@@ -53,10 +70,10 @@ declare namespace API {
 
   type IPageLabel = {
     current?: number;
+    size?: number;
     records?: Label[];
     total?: number;
     pages?: number;
-    size?: number;
   };
 
   type Label = {
@@ -69,15 +86,6 @@ declare namespace API {
     createUser?: string;
     updateUser?: string;
     deleted?: number;
-  };
-
-  type LoginVo = {
-    accountName: string;
-    password: string;
-  };
-
-  type LogoutParams = {
-    userId: number;
   };
 
   type ReviseParams = {
