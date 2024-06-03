@@ -15,6 +15,7 @@ export default [
       { path: '/admin/sub-page', name: '二级管理页', component: './Admin' },
     ],
   },
+  { path: '/get_charts', name: '智能分析', icon: 'smile', component: './GetCharts' },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];
