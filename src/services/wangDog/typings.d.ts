@@ -29,12 +29,6 @@ declare namespace API {
     data?: UserVo;
   };
 
-  type ChartVo = {
-    chartName?: string;
-    chartType?: string;
-    chartTarget?: string;
-  };
-
   type createUserLabelParams = {
     userid: number;
     labels: string[];
@@ -55,7 +49,10 @@ declare namespace API {
   };
 
   type ExcelToStringParams = {
-    chartVo: ChartVo;
+    chartName: string;
+    chartType: string;
+    chartTarget: string;
+    file: object;
   };
 
   type getLabelsParams = {
@@ -69,11 +66,11 @@ declare namespace API {
   };
 
   type IPageLabel = {
-    current?: number;
     size?: number;
+    current?: number;
     records?: Label[];
-    total?: number;
     pages?: number;
+    total?: number;
   };
 
   type Label = {
@@ -125,5 +122,10 @@ declare namespace API {
     userPhone?: string;
     userEmail?: string;
     userRole?: number;
+  };
+
+  type LoginVo = {
+    accountName: string;
+    password: string;
   };
 }

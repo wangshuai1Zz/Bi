@@ -6,20 +6,14 @@ import { request } from '@umijs/max';
 export async function excelToString(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.ExcelToStringParams,
-  body: {},
   options?: { [key: string]: any },
 ) {
   return request<API.ApiResponseString>('/gas/File/convert', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
-    params: {
-      ...params,
-      chartVo: undefined,
-      ...params['chartVo'],
-    },
-    data: body,
+    data: params,
     ...(options || {}),
   });
 }
