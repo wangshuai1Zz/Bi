@@ -54,6 +54,7 @@
     "classnames": "^2.5.1",
     "echarts-for-react": "^3.0.2",
     "omit.js": "^2.0.2",
+    "papaparse": "^5.4.1",
     "querystring": "^0.2.1",
     "rc-menu": "^9.12.4",
     "rc-util": "^5.38.1",

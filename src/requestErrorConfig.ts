@@ -1,25 +1,25 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { message } from 'antd';
+import { message as msg } from 'antd';
 
 // 与后端约定的响应数据格式
 // 与后端约定的响应数据格式
 interface ResponseStructure {
   data: any; // 请求返回的数据
-  errorCode?: number; // 错误码
-  errorMessage?: string; // 错误信息
+  code?: number; // 错误码
+  message?: string; // 错误信息
 }
 
 export const errorConfig: RequestConfig = {
   errorConfig: {
     // 错误抛出器
     errorThrower: (res) => {
-      const { errorCode, errorMessage } = res as unknown as ResponseStructure;
+      const { code, message } = res as unknown as ResponseStructure;
       // 如果请求未成功且错误码不为2000，则抛出错误
-      if (errorCode !== 2000) {
-        const error: any = new Error(errorMessage);
+      if (code !== 2000) {
+        const error: any = new Error(message);
         error.name = 'BizError';
-        error.info = { errorCode, errorMessage };
+        error.info = { code, message };
         throw error;
       }
     },
@@ -31,18 +31,18 @@ export const errorConfig: RequestConfig = {
       if (error.name === 'BizError') {
         const errorInfo: ResponseStructure | undefined = error.info;
         if (errorInfo) {
-          const { errorMessage, errorCode } = errorInfo;
-          message.error(`错误 ${errorCode}: ${errorMessage}`);
+          const { message, code } = errorInfo;
+          msg.error(`错误 ${code}: ${message}`);
         }
       } else if (error.response) {
         // 如果有响应，则显示响应状态
-        message.error(`响应状态:${error.response.status}`);
+        msg.error(`响应状态:${error.response.status}`);
       } else if (error.request) {
         // 如果没有响应，则提示重试
-        message.error('无响应！请重试。');
+        msg.error('无响应！请重试。');
       } else {
         // 如果请求错误，则提示重试
-        message.error('请求错误，请重试。');
+        msg.error('请求错误，请重试。');
       }
     },
   },
@@ -65,9 +65,13 @@ export const errorConfig: RequestConfig = {
   responseInterceptors: [
     (response) => {
       const { data } = response as unknown as ResponseStructure;
+      console.log(data);
       // 如果请求未成功且错误码不为2000，则显示错误信息
-      if (data?.success === false && data?.errorCode !== 2000) {
-        message.error('请求失败！');
+      if (data?.code !== 2000) {
+        const error: any = new Error(data?.message);
+        error.name = 'BizError';
+        error.info = { code: data?.code, message: data?.message };
+        throw error;
       }
       return response;
     },

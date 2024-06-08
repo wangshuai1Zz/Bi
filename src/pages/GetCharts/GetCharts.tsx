@@ -9,10 +9,11 @@ const GetCharts: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [chartConfig, setChartOptions] = useState({});
-  const [Target, setTarget] = useState(''); // 分析目标
+  const [results, setResults] = useState(''); // 分析结果
   const onFinish = async (values: any) => {
     setIsLoading(true);
     setChartOptions({});
+    setResults('');
     try {
       const res = await excelToString({
         chartName: values.chartName,
@@ -22,18 +23,16 @@ const GetCharts: React.FC = () => {
       });
       if (res.code === 2000) {
         if (!res?.data) {
-          message.error('生成图表失败');
           return;
         }
         const jsonData = JSON.parse(res.data);
         const echartsConfig = jsonData.echarts;
         setChartOptions(echartsConfig);
-        setTarget(jsonData.Target);
+        setResults(jsonData.Target);
         message.success('生成图表成功');
       }
     }
     catch (error) {
-      message.error('生成图表失败');
     }
     finally {
       setIsLoading(false);
@@ -86,7 +85,7 @@ const GetCharts: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='getCharts'>
       <h1>利用excel分析数据</h1>
       <Spin spinning={isLoading} tip="生成中...">
         <Row gutter={16}>
@@ -160,10 +159,10 @@ const GetCharts: React.FC = () => {
             </Card>
             <Card title="分析结果" style={{ marginTop: 20 }}>
               {
-                Object.keys(Target).length === 0 ? (
+                Object.keys(results).length === 0 ? (
                   <div>请先获取分析结果</div>
                 ) : (
-                  <Typography.Text>{Target}</Typography.Text>
+                  <Typography.Text>{results}</Typography.Text>
                 )
               }
             </Card>
